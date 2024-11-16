@@ -1,0 +1,49 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form action="/login" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" required>
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" required>
+        <button type="submit">Login</button>
+    </form>
+
+    <h1>Register</h1>
+    <form id="register-form">
+        <label for="reg-username">Username:</label>
+        <input type="text" name="username" id="reg-username" required>
+        <label for="reg-password">Password:</label>
+        <input type="password" name="password" id="reg-password" required>
+        <button type="submit">Register</button>
+    </form>
+
+    <script>
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('reg-username').value;
+            const password = document.getElementById('reg-password').value;
+
+            const response = await fetch('/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+
+            if (response.status === 201) {
+                alert('Registration successful!');
+                location.reload();
+            } else {
+                alert('Registration failed. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>
